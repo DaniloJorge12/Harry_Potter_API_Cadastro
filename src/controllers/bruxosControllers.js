@@ -149,21 +149,20 @@ const updatebruxo = (req, res) => {
         })
     }
 
-    const gamesAtualizado = boardGames.map(g => 
-        g.id === id ? {
-            ...g,
+    const bruxosAtualizados = bruxos.map(b => 
+        b.id === id ? {
+            ...b,
             ...(nome && { nome }),
-            ...(categoria && { categoria }),
-            ...(minJogadores && { minJogadores }),
-            ...(maxJogadores && { maxJogadores }),
-            ...(duracao && { duracao }),
-            ...( complexidade &&  { complexidade }),
-            ...( editor &&  { editor }),
-            ...( preco &&  { preco })
-        } : g
+            ...(casa && { casa }),
+            ...(ano && { ano: parseInt(ano) }), 
+            ...(varinha && { varinha }),
+            ...(mascote && { mascote }),
+            ...(patrono && { patrono }),
+            ...(especialidade && { especialidade })
+        } : b
     );
 
-    boardGames.splice(0, bruxos.length, ...gamesAtualizado);
+    bruxos.splice(0, bruxos.length, ...bruxosAtualizados);
     const bruxoEditado = bruxos.find(b => b.id === id);
 
     res.status(200).json({
