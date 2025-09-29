@@ -72,10 +72,10 @@ const createbruxo = (req, res) => {
     }
     
     if (nomeExistente) {
-        return res.status(400).json({
+        return res.status(409).json({
             success: false,
             message: "Já existe um bruxo com esse nome!"
-        });
+        });0
     }
 
     const novobruxo = {
@@ -125,7 +125,7 @@ const deletebruxo = (req, res) => {
 
     res.status(200).json({
         success: true,
-        message: "Bruxo atualizado com sucesso!"
+        message: "Bruxo expulso de Hogwarts com sucesso!"
     })
 };
 
@@ -145,7 +145,7 @@ const updatebruxo = (req, res) => {
     if(!bruxoExiste){
         return res.status(404).json({
             success: false,
-            message: `O Board Game com o id ${id} é inexistente`
+            message: "Não é possível reparar o que não existe!"
         })
     }
 
