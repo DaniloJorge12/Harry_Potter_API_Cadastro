@@ -1,4 +1,4 @@
-let bruxos = [
+const bruxos = [
     {
         id: 1,
         nome: "Harry Potter",

@@ -67,14 +67,14 @@ const createbruxo = (req, res) => {
     if (!nome || !casa || !ano) {
         return res.status(400).json({
             success: false,
-            message: "Nome, casa e ano são campos obrigatórios para criar um bruxo!"
+            message: "Feitiço mal executado! Verifique os ingredientes."
         });
     }
     
     if (nomeExistente) {
         return res.status(400).json({
             success: false,
-            message: `Já existe um bruxo com o nome '${nome}'!`
+            message: "Já existe um bruxo com esse nome!"
         });
     }
 
@@ -92,7 +92,7 @@ const createbruxo = (req, res) => {
     bruxos.push(novobruxo);
     return res.status(201).json({
         success: true,
-        message: "Bruxo(a) criado(a) com sucesso!",
+        message: "Novo bruxo matriculado em Hogwarts!",
         bruxo: novobruxo
     });
 };
@@ -108,31 +108,31 @@ const deletebruxo = (req, res) => {
         });
     }
 
-    //Verificar se não tem outro Board Game com o ID
-    const gameParaRemover = boardGames.find(g => g.id === id);
+    //Verificar se não tem outro Bruxo com o ID
+    const bruxoParaRemover = bruxos.find(b => b.id === id);
 
-    if(!gameParaRemover) {
+    if(!bruxoParaRemover) {
         return res.status(404).json({
             success: false,
-            message: `O Board Game com o ID ${id} não existe`
+            message: `O Bruxo com o ID ${id} não existe`
         });
     }
 
-    //Remover o Board Game com ID
-    const gamesFiltrados = boardGames.filter(g => g.id !== id);
-    boardGames.splice(0, boardGames.length, ...gamesFiltrados);
+    //Remover o Bruxo com ID
+    const bruxosFiltrados = bruxos.filter(b => b.id !== id);
+    bruxos.splice(0, bruxos.length, ...bruxosFiltrados);
 
 
     res.status(200).json({
         success: true,
-        message: `O Board Game com o ${id} foi removido com sucesso`
+        message: "Bruxo atualizado com sucesso!"
     })
 };
 
 //Update
 const updatebruxo = (req, res) => {
     const id = parseInt(req.params.id);
-    const { nome, categoria, minJogadores, maxJogadores, duracao, complexidade, editor, preco } = req.query;
+    const { nome, casa, ano, varinha, mascote, patrono, especialidade } = req.query;
 
     if(isNaN(id)){
         return res.status(400).json({
@@ -141,8 +141,8 @@ const updatebruxo = (req, res) => {
         })
     }
 
-    const gameExiste = boardGames.find(g => g.id === id);
-    if(!gameExiste){
+    const bruxoExiste = bruxos.find(b => b.id === id);
+    if(!bruxoExiste){
         return res.status(404).json({
             success: false,
             message: `O Board Game com o id ${id} é inexistente`
@@ -163,13 +163,13 @@ const updatebruxo = (req, res) => {
         } : g
     );
 
-    boardGames.splice(0, boardGames.length, ...gamesAtualizado);
-    const gameEditado = boardGames.find(g => g.id === id);
+    boardGames.splice(0, bruxos.length, ...gamesAtualizado);
+    const bruxoEditado = bruxos.find(b => b.id === id);
 
     res.status(200).json({
         success: true,
-        message: "Dados do Bruxo atualizado",
-        boardGames: gameEditado
+        message: "Bruxo atualizado com sucesso!",
+        bruxos: bruxoEditado
     })
 }
 
